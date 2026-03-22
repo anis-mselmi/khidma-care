@@ -671,6 +671,11 @@ textarea:focus-visible {
     overflow-x: hidden;
   }
 
+  html,
+  body {
+    width: 100%;
+  }
+
   p,
   h1,
   h2,
@@ -686,6 +691,10 @@ textarea:focus-visible {
   .max-w-3xl {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .grid {
+    gap: 1.25rem;
   }
 
   nav .h-20 {
@@ -727,6 +736,14 @@ textarea:focus-visible {
   #home h1 {
     font-size: 2rem;
     line-height: 1.15;
+  }
+
+  .section-wrap h1 {
+    line-height: 1.15;
+  }
+
+  .section-wrap h2 {
+    line-height: 1.2;
   }
 
   #home .soft-card {
@@ -888,14 +905,24 @@ textarea:focus-visible {
     padding-bottom: 1.4rem;
   }
 
+  #mission h1,
   #mission h2,
+  #caravans h1,
   #caravans h2,
+  #moments h1,
   #moments h2,
+  #team h1,
   #team h2,
+  #find-us h1,
   #find-us h2,
+  #contact h1,
   #contact h2 {
     font-size: 1.9rem;
     line-height: 1.15;
+  }
+
+  .section-wrap p {
+    line-height: 1.6;
   }
 
   #moments .swiper-slide img {
@@ -912,6 +939,20 @@ textarea:focus-visible {
 }
 
 @media (max-width: 420px) {
+  nav .tracking-tight.text-deep-blue {
+    font-size: 1.15rem;
+  }
+
+  #mobile-menu {
+    padding-top: 0.75rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .icon-chip {
+    width: 3.3rem;
+    height: 3.3rem;
+  }
+
   #home h1 {
     font-size: 1.75rem;
   }

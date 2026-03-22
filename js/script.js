@@ -2,8 +2,35 @@
 const menuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+  const closeMobileMenu = () => {
+    mobileMenu.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  };
+
+  menuBtn.setAttribute('aria-controls', 'mobile-menu');
+  menuBtn.setAttribute('aria-expanded', 'false');
+
+  menuBtn.addEventListener('click', () => {
+    const isHidden = mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(!isHidden));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (mobileMenu.classList.contains('hidden')) return;
+    const clickedInsideMenu = mobileMenu.contains(event.target);
+    const clickedMenuButton = menuBtn.contains(event.target);
+    if (!clickedInsideMenu && !clickedMenuButton) {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      closeMobileMenu();
+    }
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
 }
 
 // Initialize Swiper Carousel only on pages that include it
