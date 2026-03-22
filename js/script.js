@@ -6,16 +6,18 @@ if (menuBtn && mobileMenu) {
   mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 }
 
-// Initialize Swiper Carousel
-new Swiper('.moments-swiper', {
-  loop: true,
-  autoplay: { delay: 4000, disableOnInteraction: false },
-  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-  pagination: { el: '.swiper-pagination', clickable: true },
-  spaceBetween: 0,
-  effect: 'slide',
-  speed: 800
-});
+// Initialize Swiper Carousel only on pages that include it
+if (document.querySelector('.moments-swiper') && typeof Swiper !== 'undefined') {
+  new Swiper('.moments-swiper', {
+    loop: true,
+    autoplay: { delay: 4000, disableOnInteraction: false },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    spaceBetween: 0,
+    effect: 'slide',
+    speed: 800
+  });
+}
 
 // Scroll reveal animation
 const revealElements = document.querySelectorAll('.reveal');
