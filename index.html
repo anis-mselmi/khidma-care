@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Khidma Care | Medical Caravans for Underserved Communities</title>
+  <link rel="icon" type="image/png" href="khidma%20(3).png">
+  <link rel="apple-touch-icon" href="khidma%20(3).png">
+  <!-- Tailwind CSS + Font Awesome + Swiper for carousel -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <style>
+    :root {
+      --medical-blue: #1565C0;
+      --medical-blue-dark: #0d47a1;
+      --medical-blue-soft: #e3f2fd;
+      --surface-white: #ffffff;
+      --surface-gray: #f5f7fa;
+      --text-main: #0f172a;
+      --text-soft: #475569;
+      --line-soft: #dbe6f3;
+      --card-shadow: 0 14px 34px rgba(21, 101, 192, 0.12);
+      --card-shadow-hover: 0 20px 42px rgba(13, 71, 161, 0.2);
+    }
+
+    * {
+      scroll-behavior: smooth;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #fafdff 0%, var(--surface-gray) 35%, #eff5fb 100%);
+      color: var(--text-main);
+    }
+
+    .bg-deep-blue {
+      background-color: var(--medical-blue);
+    }
+
+    .bg-deep-blue-dark {
+      background-color: var(--medical-blue-dark);
+    }
+
+    .text-deep-blue {
+      color: var(--medical-blue);
+    }
+
+    .border-deep-blue {
+      border-color: var(--medical-blue);
+    }
+
+    .section-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-soft {
+      background: linear-gradient(180deg, #f5fbff 0%, #edf4fb 100%);
+    }
+
+    .hero-wave {
+      background-image:
+        linear-gradient(115deg, rgba(7, 33, 74, 0.82) 0%, rgba(21, 101, 192, 0.62) 48%, rgba(93, 164, 234, 0.45) 100%),
+        radial-gradient(circle at 82% 16%, rgba(255, 255, 255, 0.22), transparent 36%),
+        radial-gradient(circle at 20% 24%, rgba(255, 255, 255, 0.2), transparent 42%),
+        url('a.png');
+      background-size: cover, auto, auto, cover;
+      background-position: center, center, center, center;
+      background-repeat: no-repeat;
+      position: relative;
+      animation: heroDrift 18s ease-in-out infinite alternate;
+    }
+
+    .hero-wave::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .hero-wave::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 120%, rgba(9, 32, 74, 0.5), rgba(9, 32, 74, 0));
+      pointer-events: none;
+    }
+
+    .soft-card {
+      background: var(--surface-white);
+      border: 1px solid var(--line-soft);
+      border-radius: 1.25rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .soft-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: rgba(21, 101, 192, 0.4);
+    }
+
+    .icon-chip {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);
+      color: var(--medical-blue);
+      box-shadow: 0 10px 24px rgba(21, 101, 192, 0.15);
+    }
+
+    .brand-logo-wrap {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.9rem;
+      padding: 0.22rem;
+      background: linear-gradient(135deg, #ffffff 0%, #dbeafe 50%, #bfdbfe 100%);
+      box-shadow: 0 10px 24px rgba(13, 71, 161, 0.22);
+      animation: logoPulse 3.2s ease-in-out infinite;
+    }
+
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      border-radius: 0.7rem;
+      object-fit: cover;
+      display: block;
+      transform-origin: center;
+      animation: logoSpinTilt 8s ease-in-out infinite;
+    }
+
+    .hero-logo-orbit {
+      position: absolute;
+      top: -1rem;
+      right: 0.3rem;
+      width: 6rem;
+      height: 6rem;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.18));
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 30px rgba(7, 35, 76, 0.35);
+      animation: orbitFloat 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .hero-logo-orbit::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: inherit;
+      border: 2px dashed rgba(255, 255, 255, 0.55);
+      animation: orbitSpin 12s linear infinite;
+    }
+
+    .hero-logo-orbit img {
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 16px rgba(13, 71, 161, 0.35);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--medical-blue) 0%, var(--medical-blue-dark) 100%);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      box-shadow: 0 10px 26px rgba(21, 101, 192, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.01);
+      filter: brightness(1.06);
+      box-shadow: 0 14px 30px rgba(13, 71, 161, 0.45);
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background: #fff;
+      color: var(--medical-blue);
+    }
+
+    .nav-link {
+      position: relative;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: var(--medical-blue);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .team-img-wrapper {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #fff;
+      box-shadow: 0 12px 26px rgba(21, 101, 192, 0.2);
+      background: linear-gradient(145deg, #dbeafe, #eff6ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.25rem;
+      padding: 0;
+      background: #ffffff;
+      border: 1px solid #d7e6f8;
+      box-shadow: 0 14px 28px rgba(21, 101, 192, 0.14);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 38px rgba(13, 71, 161, 0.22);
+      border-color: #9ec3ee;
+    }
+
+    .team-card::before {
+      content: none;
+    }
+
+    .team-photo-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 1.25rem;
+      overflow: hidden;
+    }
+
+    .team-photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13, 71, 161, 0.4), rgba(13, 71, 161, 0));
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .team-photo-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .team-card:hover .team-photo-frame img {
+      transform: scale(1.08);
+    }
+
+    .team-card:hover .team-photo-frame::after {
+      opacity: 1;
+    }
+
+    .team-role-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+      padding: 0.38rem 0.8rem;
+      border-radius: 999px;
+      background: #e3f2fd;
+      color: #0d47a1;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+
+    .video-loop-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+    }
+
+    .video-loop-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .map-frame {
+      border: 0;
+    }
+
+    .stat-value {
+      font-size: clamp(2rem, 3vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--medical-blue);
+      background: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(21, 101, 192, 0.22);
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .swiper-pagination-bullet {
+      background: #94a3b8;
+      opacity: 0.6;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: var(--medical-blue);
+      opacity: 1;
+    }
+
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: 82px;
+    }
+
+    .floating-badge {
+      animation: bob 4.2s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 10px 24px rgba(13, 71, 161, 0.22); }
+      50% { box-shadow: 0 14px 30px rgba(13, 71, 161, 0.38); }
+    }
+
+    @keyframes logoSpinTilt {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      35% { transform: rotate(4deg) scale(1.03); }
+      70% { transform: rotate(-3deg) scale(0.99); }
+    }
+
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes orbitFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes heroDrift {
+      0% { background-position: center, center, center, 50% 50%; }
+      100% { background-position: center, center, center, 50% 42%; }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      nav .h-20 {
+        height: 4.5rem;
+      }
+
+      nav .tracking-tight.text-deep-blue {
+        font-size: 1.35rem;
+        line-height: 1.1;
+      }
+
+      .brand-logo-wrap {
+        width: 2.45rem;
+        height: 2.45rem;
+        padding: 0.18rem;
+      }
+
+      #mobile-menu {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 0 0 1rem 1rem;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+      }
+
+      #home .max-w-7xl {
+        padding-top: 5.5rem;
+        padding-bottom: 4rem;
+      }
+
+      #home h1 {
+        font-size: 2rem;
+        line-height: 1.15;
+      }
+
+      #home p {
+        font-size: 1rem;
+      }
+
+      #home .flex.flex-wrap.gap-4 {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+
+      #home .flex.flex-wrap.gap-4 a {
+        width: 100%;
+        justify-content: center;
+      }
+
+      #home .soft-card {
+        margin-top: 0.75rem;
+      }
+
+      #home .soft-card img {
+        height: 13.5rem;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        display: none;
+      }
+
+      .hero-logo-orbit {
+        width: 4.8rem;
+        height: 4.8rem;
+        top: -1.2rem;
+        right: 0.2rem;
+      }
+
+      .hero-logo-orbit img {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .floating-badge {
+        display: none;
+      }
+
+      section.py-24 {
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+      }
+
+      .wave-divider svg {
+        height: 54px;
+      }
+
+      #caravans .soft-card,
+      #contact .soft-card,
+      #find-us .soft-card {
+        padding: 1.25rem;
+      }
+
+      #moments .swiper-slide img {
+        height: 15rem;
+      }
+
+      .team-card,
+      .team-photo-frame {
+        border-radius: 0.8rem;
+      }
+
+      #contact .mt-8.flex.flex-wrap.gap-3 a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+
+      footer .grid {
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      #home h1 {
+        font-size: 1.75rem;
+      }
+
+      #home .inline-flex.items-center.gap-2 {
+        font-size: 0.75rem;
+      }
+
+      .hero-logo-orbit {
+        display: none;
+      }
+
+      .hero-wave {
+        animation: none;
+      }
+
+      .soft-card {
+        border-radius: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="sticky top-0 z-50 bg-white/85 backdrop-blur-md shadow-sm border-b border-blue-100">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="flex justify-between items-center h-20">
+        <div class="flex items-center space-x-2">
+          <div class="brand-logo-wrap">
+            <img src="khidma%20(3).png" alt="Khidma Care logo" class="brand-logo">
+          </div>
+          <span class="text-2xl font-bold tracking-tight text-deep-blue">Khidma<span class="font-light">Care</span></span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="nav-link text-gray-700 hover:text-deep-blue transition">Home</a>
+          <a href="#mission" class="nav-link text-gray-700 hover:text-deep-blue transition">Mission</a>
+          <a href="#caravans" class="nav-link text-gray-700 hover:text-deep-blue transition">Caravans</a>
+          <a href="#moments" class="nav-link text-gray-700 hover:text-deep-blue transition">Moments</a>
+          <a href="#team" class="nav-link text-gray-700 hover:text-deep-blue transition">Team</a>
+          <a href="#find-us" class="nav-link text-gray-700 hover:text-deep-blue transition">Find Us</a>
+          <a href="#contact" class="nav-link text-gray-700 hover:text-deep-blue transition">Contact</a>
+        </div>
+        <div class="hidden md:flex gap-3">
+          <a href="#contact" class="text-deep-blue border border-blue-200 px-5 py-2 rounded-full text-sm font-semibold transition hover:bg-blue-50 flex items-center gap-2">
+            <i class="fas fa-heart"></i> Join Us
+          </a>
+          <a href="#volunteer" class="btn-primary px-5 py-2 text-sm shadow-md flex items-center gap-2">
+            <i class="fas fa-hands-helping"></i> Volunteer
+          </a>
+        </div>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-deep-blue text-2xl focus:outline-none" type="button" aria-label="Open navigation menu" title="Open menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden pb-5 flex flex-col space-y-3 border-t border-gray-100 pt-4">
+        <a href="#home" class="text-gray-700 py-1 hover:text-deep-blue">Home</a>
+        <a href="#mission" class="text-gray-700 py-1 hover:text-deep-blue">Mission</a>
+        <a href="#caravans" class="text-gray-700 py-1 hover:text-deep-blue">Caravans</a>
+        <a href="#moments" class="text-gray-700 py-1 hover:text-deep-blue">Moments</a>
+        <a href="#team" class="text-gray-700 py-1 hover:text-deep-blue">Team</a>
+        <a href="#find-us" class="text-gray-700 py-1 hover:text-deep-blue">Find Us</a>
+        <a href="#contact" class="text-gray-700 py-1 hover:text-deep-blue">Contact</a>
+        <a href="#contact" class="text-deep-blue border border-blue-200 text-center rounded-full py-2 mt-2">Join Us</a>
+        <a href="#volunteer" class="bg-deep-blue text-white text-center rounded-full py-2 mt-2">Volunteer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-wave text-white section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24 md:py-32 relative z-10">
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 bg-white/25 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+              <i class="fas fa-heartbeat text-rose-200"></i>
+              <span>Humanitarian Medical Initiative</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+              Bringing Healthcare <span class="text-blue-100">to Every Doorstep</span>
+            </h1>
+            <p class="text-lg text-white/90 mt-7 max-w-xl leading-relaxed">
+              Khidma Care delivers free medical caravans to underserved and rural communities, bringing together doctors, nurses, and volunteers to provide essential healthcare with respect, dignity, and genuine compassion.
+            </p>
+            <div class="flex flex-wrap gap-4 mt-10">
+              <a href="#caravans" class="bg-white text-deep-blue font-semibold px-7 py-3 rounded-full shadow-xl hover:bg-blue-50 transition flex items-center gap-2">
+                <i class="fas fa-truck-medical"></i> See Caravans
+              </a>
+              <a href="#volunteer" class="btn-outline px-7 py-3 flex items-center gap-2">
+                <i class="fas fa-user-plus"></i> Join as Volunteer
+              </a>
+            </div>
+          </div>
+          <div class="relative flex justify-center reveal">
+            <div class="hero-logo-orbit" aria-hidden="true">
+              <img src="khidma%20(3).png" alt="">
+            </div>
+            <div class="floating-badge absolute -top-6 -left-2 md:left-6 bg-white text-deep-blue rounded-2xl px-4 py-3 shadow-xl text-sm font-semibold">
+              <i class="fas fa-cross mr-2"></i>Trusted Medical Support
+            </div>
+            <div class="soft-card bg-white/95 rounded-3xl p-4 md:p-5 border-white/60 max-w-md text-center">
+              <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=80" alt="Doctor caring for a patient" class="w-full h-72 object-cover rounded-2xl">
+              <div class="pt-5 pb-3 px-2">
+                <p class="font-semibold text-xl text-slate-800">Direct human impact, no digital barrier.</p>
+                <p class="text-sm text-slate-600 mt-2">Real-world caravans reaching remote villages with empathy and care.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wave-divider relative z-10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#f5fbff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L0,120Z"></path></svg></div>
+    </section>
+
+    <!-- MISSION SECTION -->
+    <section id="mission" class="py-24 section-soft section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+          <span class="text-deep-blue font-semibold tracking-wide uppercase text-sm">Our Mission</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-2 text-slate-800 tracking-tight">Healthcare Access for All</h2>
+          <div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="soft-card p-8 text-center reveal">
+            <div class="icon-chip mx-auto mb-5"><i class="fas fa-ambulance text-2xl"></i></div>
+            <h3 class="text-xl font-bold">Medical Caravans</h3>
+            <p class="text-slate-600 mt-3 leading-relaxed">Free consultations, checkups, and medicine distribution in rural areas.</p>
+          </div>
+          <div class="soft-card p-8 text-center reveal">
+            <div class="icon-chip mx-auto mb-5"><i class="fas fa-chalkboard-user text-2xl"></i></div>
+            <h3 class="text-xl font-bold">Health Awareness</h3>
+            <p class="text-slate-600 mt-3 leading-relaxed">Educational sessions on hygiene, nutrition, and prevention.</p>
+          </div>
+          <div class="soft-card p-8 text-center reveal">
+            <div class="icon-chip mx-auto mb-5"><i class="fas fa-hand-holding-medical text-2xl"></i></div>
+            <h3 class="text-xl font-bold">Volunteer Spirit</h3>
+            <p class="text-slate-600 mt-3 leading-relaxed">Uniting medical professionals and citizens for solidarity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="bg-deep-blue text-white py-20 section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Impact in Numbers</h2>
+          <p class="text-blue-100 mt-3">Each caravan translates compassion into measurable health outcomes.</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+          <div class="soft-card bg-white/10 border-white/20 p-6 reveal"><i class="fas fa-users text-3xl text-blue-100 mb-3"></i><p class="stat-value"><span class="counter" data-target="15" data-suffix="+">0</span></p><p class="text-sm text-blue-100 mt-2">Caravans</p></div>
+          <div class="soft-card bg-white/10 border-white/20 p-6 reveal"><i class="fas fa-user-md text-3xl text-blue-100 mb-3"></i><p class="stat-value"><span class="counter" data-target="95" data-suffix="+">0</span></p><p class="text-sm text-blue-100 mt-2">Volunteers</p></div>
+          <div class="soft-card bg-white/10 border-white/20 p-6 reveal"><i class="fas fa-heartbeat text-3xl text-blue-100 mb-3"></i><p class="stat-value"><span class="counter" data-target="4200" data-suffix="+">0</span></p><p class="text-sm text-blue-100 mt-2">Patients</p></div>
+          <div class="soft-card bg-white/10 border-white/20 p-6 reveal"><i class="fas fa-map-marked-alt text-3xl text-blue-100 mb-3"></i><p class="stat-value"><span class="counter" data-target="12">0</span></p><p class="text-sm text-blue-100 mt-2">Regions</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARAVANS SECTION -->
+    <section id="caravans" class="py-24 bg-white section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-14 reveal"><span class="text-deep-blue font-semibold uppercase text-sm">On the Road</span><h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 mt-2 tracking-tight">Upcoming Caravans</h2><div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div></div>
+        <div class="max-w-3xl mx-auto">
+          <div class="soft-card p-8 md:p-10 reveal border-2 border-dashed border-blue-300 bg-gradient-to-br from-blue-50 via-white to-blue-100 text-center">
+            <span class="bg-deep-blue text-white text-xs font-bold px-3 py-1 rounded-full">UPCOMING</span>
+            <div class="mt-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white border border-blue-200 shadow-md">
+              <i class="fas fa-circle-question text-3xl text-deep-blue"></i>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-extrabold mt-5 text-slate-800">Next Destination: To Be Announced</h3>
+            <p class="text-slate-600 mt-3 max-w-xl mx-auto">Our next medical caravan location and date are currently being finalized based on urgent regional needs.</p>
+            <p class="mt-3 text-deep-blue font-semibold"><i class="fas fa-calendar-check mr-2"></i>Date and place coming soon</p>
+            <a href="#volunteer" class="inline-flex items-center mt-6 btn-primary px-6 py-3">Join the upcoming mission</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CAROUSEL: BEST MOMENTS (Swiper) ==================== -->
+    <section id="moments" class="py-24 section-soft section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-12 reveal">
+          <span class="text-deep-blue font-semibold uppercase tracking-wide">Gallery</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 mt-2 tracking-tight">Best Moments of Humanity</h2>
+          <div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div>
+          <p class="text-slate-600 mt-3">Capturing the spirit of our medical caravans across Tunisia</p>
+        </div>
+        <div class="swiper moments-swiper rounded-3xl overflow-hidden shadow-xl border border-blue-100 reveal">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide relative"><img src="https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?auto=format&fit=crop&w=1200&q=80" class="w-full h-80 md:h-96 object-cover" alt="Medical caravan"><div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent text-white p-5 w-full"><p class="font-bold">Free consultations in Kef region</p></div></div>
+            <div class="swiper-slide relative"><img src="https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&w=1200&q=80" class="w-full h-80 md:h-96 object-cover" alt="Volunteers"><div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent text-white p-5 w-full"><p class="font-bold">Volunteer team distributing medicine</p></div></div>
+            <div class="swiper-slide relative"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80" class="w-full h-80 md:h-96 object-cover" alt="Child healthcare"><div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent text-white p-5 w-full"><p class="font-bold">Pediatric care in rural village</p></div></div>
+            <div class="swiper-slide relative"><img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?auto=format&fit=crop&w=1200&q=80" class="w-full h-80 md:h-96 object-cover" alt="Awareness session"><div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent text-white p-5 w-full"><p class="font-bold">Health awareness workshop</p></div></div>
+            <div class="swiper-slide relative"><img src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=1200&q=80" class="w-full h-80 md:h-96 object-cover" alt="Mobile clinic"><div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent text-white p-5 w-full"><p class="font-bold">Mobile clinic in Siliana</p></div></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIDEO INFINITE LOOP SECTION ==================== -->
+    <section class="py-24 bg-white section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-10 reveal">
+          <span class="text-deep-blue font-semibold uppercase tracking-wide">In Action</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 mt-2 tracking-tight">Witness the Impact</h2>
+          <div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="video-loop-container rounded-3xl shadow-2xl overflow-hidden aspect-video max-w-4xl mx-auto border border-blue-100 reveal">
+          <video autoplay muted loop class="w-full h-full object-cover">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag. (Demo loop video - showcasing solidarity)
+          </video>
+          <div class="absolute inset-0 bg-deep-blue/25 flex items-center justify-center pointer-events-none">
+            <div class="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg"><i class="fas fa-play-circle text-deep-blue text-4xl"></i></div>
+          </div>
+        </div>
+        <p class="text-center text-slate-500 text-sm mt-4">Khidma Care in action, bringing medical aid to remote communities.</p>
+      </div>
+    </section>
+
+    <!-- ==================== CORE TEAM SECTION ==================== -->
+    <section id="team" class="py-24 section-soft section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-14 reveal"><span class="text-deep-blue font-semibold uppercase tracking-wide">Our Core Team</span><h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 mt-2 tracking-tight">People Behind Khidma Care</h2><div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div></div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="team-card reveal">
+            <div class="team-photo-frame"><img src="Copie%20de%20team%20khidma.png" alt="Dr. Samia"></div>
+          </div>
+          <div class="team-card reveal">
+            <div class="team-photo-frame"><img src="Copie%20de%20team%20khidma%20(1).png" alt="Youssef"></div>
+          </div>
+          <div class="team-card reveal">
+            <div class="team-photo-frame"><img src="Copie%20de%20team%20khidma%20(2).png" alt="Nour"></div>
+          </div>
+          <div class="team-card reveal">
+            <div class="team-photo-frame"><img src="Copie%20de%20team%20khidma%20(3).png" alt="Ahmed"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FIND US: POLYTECHNIQUE SOUSSE LOCATION ==================== -->
+    <section id="find-us" class="py-24 bg-white section-wrap">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-12 reveal">
+          <span class="text-deep-blue font-semibold uppercase tracking-wide">Our Hub</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 mt-2 tracking-tight">Find Us - Polytechnique Sousse</h2>
+          <div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div>
+          <p class="text-slate-600 mt-3">Khidma Care is proudly supported by students and faculty from Ecole Polytechnique de Sousse.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-10 items-stretch">
+          <div class="soft-card p-6 reveal">
+            <div class="flex items-start gap-4">
+              <div class="icon-chip w-12 h-12 p-0 flex-shrink-0"><i class="fas fa-map-marker-alt text-deep-blue text-xl"></i></div>
+              <div>
+                <h3 class="font-bold text-xl text-slate-800">Ecole Polytechnique de Sousse</h3>
+                <p class="text-slate-600 mt-1">Cite Olympique, 4051 Sousse, Tunisia</p>
+                <p class="text-slate-500 text-sm mt-2"><i class="fas fa-phone-alt mr-2"></i> +216 73 123 456</p>
+                <p class="text-slate-500 text-sm"><i class="fas fa-envelope mr-2"></i> contact@polytechnique-sousse.tn</p>
+                <div class="mt-4 flex gap-3"><a href="#" class="text-deep-blue" aria-label="Khidma Care Facebook" title="Facebook"><i class="fab fa-facebook-f text-xl"></i></a><a href="#" class="text-deep-blue" aria-label="Khidma Care LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in text-xl"></i></a></div>
+              </div>
+            </div>
+            <div class="mt-5 pt-4 border-t border-gray-200">
+              <p class="text-sm text-slate-600"><i class="fas fa-bus mr-2 text-deep-blue"></i> Easily accessible near Olympic Stadium. Our team meets here for coordination and training sessions.</p>
+            </div>
+          </div>
+          <div class="rounded-3xl overflow-hidden shadow-lg border border-blue-100 h-80 md:h-auto min-h-[280px] reveal">
+            <iframe class="w-full h-full map-frame" frameborder="0" src="https://www.google.com/maps?q=35.826273,10.5895738&z=16&output=embed" allowfullscreen title="Map showing Polytechnique Sousse location"></iframe>
+            <div class="bg-blue-50 p-2 text-center text-xs text-slate-500">
+              <a href="https://www.google.com/maps/place/Polytechnique+Sousse/@35.826273,10.5869989,706m/data=!3m2!1e3!4b1!4m6!3m5!1s0x12fd8b3a0237010f:0x4418fc1f1a3cb73f!8m2!3d35.826273!4d10.5895738!16s%2Fg%2F11fl499ct7?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="font-semibold text-deep-blue hover:underline">
+                Open Polytechnique Sousse in Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="mt-10 bg-deep-blue/5 p-5 rounded-2xl text-center border border-deep-blue/20 reveal">
+          <i class="fas fa-hand-holding-heart text-deep-blue text-2xl mr-2"></i>
+          <span class="font-medium">Our coordination office is based at Polytechnique Sousse — join us in making a difference!</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#edf4fb" d="M0,32L80,42.7C160,53,320,75,480,74.7C640,75,800,53,960,42.7C1120,32,1280,32,1360,32L1440,32L1440,120L0,120Z"></path></svg></div>
+
+    <!-- CONTACT SECTION + VOLUNTEER FORM -->
+    <section id="contact" class="py-24 section-soft">
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="grid md:grid-cols-2 gap-12">
+          <div class="reveal">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">Reach Out</h2>
+            <div class="w-16 h-0.5 bg-deep-blue mt-3 mb-5"></div>
+            <p class="text-slate-600 mb-6 leading-relaxed">Want to volunteer, sponsor, or partner? We're here.</p>
+            <div class="space-y-4">
+              <div class="flex gap-3"><i class="fas fa-envelope text-deep-blue text-xl mt-0.5"></i><span>contact@khidmacare.org</span></div>
+              <div class="flex gap-3"><i class="fas fa-phone-alt text-deep-blue text-xl mt-0.5"></i><span>+216 52 123 456</span></div>
+              <div class="flex gap-3"><i class="fas fa-map-marker-alt text-deep-blue text-xl mt-0.5"></i><span>Sousse, Tunisia (Polytechnique)</span></div>
+            </div>
+            <div class="mt-8 p-5 bg-deep-blue/5 rounded-2xl border border-blue-100">
+              <p class="italic">"No one should be left without medical care."</p>
+              <p class="text-sm font-semibold mt-2">- Khidma Care Team</p>
+            </div>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#volunteer" class="btn-primary px-6 py-3">Volunteer</a>
+              <a href="#contact" class="text-deep-blue border border-blue-200 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition">Join Us</a>
+            </div>
+          </div>
+          <div id="volunteer" class="soft-card p-6 md:p-8 reveal">
+            <h3 class="text-2xl font-bold flex gap-2"><i class="fas fa-hands-helping text-deep-blue"></i> Volunteer / Join</h3>
+            <form class="space-y-4 mt-4">
+              <input type="text" placeholder="Full name" class="w-full border border-blue-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200">
+              <input type="email" placeholder="Email" class="w-full border border-blue-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200">
+              <select class="w-full border border-blue-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200" aria-label="Volunteer role" title="Select volunteer role">
+                <option>Medical volunteer</option>
+                <option>Support volunteer</option>
+                <option>Sponsor/Partner</option>
+              </select>
+              <textarea rows="3" placeholder="Your message" class="w-full border border-blue-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200"></textarea>
+              <button type="submit" class="w-full btn-primary py-3 rounded-xl">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-deep-blue-dark text-gray-300 pt-12 pb-6">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div><div class="flex items-center gap-2 text-white text-xl"><i class="fas fa-hand-holding-heart text-cyan-200"></i> KhidmaCare</div><p class="text-sm mt-2">Medical caravans for underserved communities.</p></div>
+        <div><h4 class="text-white font-semibold">Quick</h4><ul class="text-sm space-y-1"><li><a href="#home" class="hover:text-cyan-200">Home</a></li><li><a href="#mission" class="hover:text-cyan-200">Mission</a></li><li><a href="#find-us" class="hover:text-cyan-200">Find Us</a></li></ul></div>
+        <div><h4 class="text-white font-semibold">Get involved</h4><ul class="text-sm space-y-1"><li><a href="#volunteer" class="hover:text-cyan-200">Volunteer</a></li><li><a href="#contact" class="hover:text-cyan-200">Partner</a></li></ul></div>
+        <div><h4 class="text-white font-semibold">Contact</h4><p class="text-sm">Sousse, Tunisia</p><p class="text-sm">contact@khidmacare.org</p></div>
+      </div>
+      <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500"><p>© 2025 Khidma Care — Humanitarian Initiative</p><p>Designed by <span class="text-cyan-300 font-medium">Anis Mselmi</span> ✦ with empathy</p></div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+    }
+
+    // Initialize Swiper Carousel
+    new Swiper('.moments-swiper', {
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      spaceBetween: 0,
+      effect: 'slide',
+      speed: 800
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach((element) => revealObserver.observe(element));
+
+    // Animated counters for impact stats
+    const counters = document.querySelectorAll('.counter');
+    let countersAnimated = false;
+
+    const animateCounters = () => {
+      counters.forEach((counter) => {
+        const target = Number(counter.dataset.target || 0);
+        const suffix = counter.dataset.suffix || '';
+        const duration = 1500;
+        const startTime = performance.now();
+
+        const updateCounter = (timestamp) => {
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(target * eased);
+          counter.textContent = value.toLocaleString() + suffix;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          }
+        };
+
+        requestAnimationFrame(updateCounter);
+      });
+    };
+
+    const statSection = document.querySelector('.counter')?.closest('section');
+    if (statSection) {
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !countersAnimated) {
+            countersAnimated = true;
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35 });
+
+      counterObserver.observe(statSection);
+    }
+  </script>
+</body>
+</html>
