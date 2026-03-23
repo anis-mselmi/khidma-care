@@ -59,8 +59,13 @@ img {
 
 video,
 iframe {
+  width: 100%;
   max-width: 100%;
   display: block;
+}
+
+.grid > * {
+  min-width: 0;
 }
 
 nav.sticky {
@@ -81,6 +86,12 @@ nav.sticky {
 
 .text-blue-100 {
   color: #c9f4fb !important;
+}
+
+footer .text-gray-500,
+footer .text-gray-500 p,
+footer .text-gray-500 span {
+  color: #9fdfff !important;
 }
 
 .border-blue-100 {
@@ -107,14 +118,19 @@ section.bg-white {
 
 #contact input,
 #contact select,
-#contact textarea {
+#contact textarea,
+#find-us input,
+#find-us select,
+#find-us textarea {
   background: #0b1f33;
   color: #e6edf7;
   border-color: #335575;
 }
 
 #contact input::placeholder,
-#contact textarea::placeholder {
+#contact textarea::placeholder,
+#find-us input::placeholder,
+#find-us textarea::placeholder {
   color: #95b4cf;
 }
 
@@ -379,6 +395,10 @@ section.bg-white {
   border: 1px solid #25364f;
   box-shadow: 0 14px 28px rgba(2, 6, 23, 0.5);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.team-card.reveal {
+  transition: opacity 0.32s ease, transform 0.32s ease;
 }
 
 .team-card:hover {
@@ -823,16 +843,19 @@ textarea:focus-visible {
     min-height: 260px;
   }
 
-  #contact .space-y-4 .flex {
+  #contact .space-y-4 .flex,
+  #find-us .space-y-4 .flex {
     align-items: flex-start;
     gap: 0.6rem;
   }
 
-  #contact .space-y-4 span {
+  #contact .space-y-4 span,
+  #find-us .space-y-4 span {
     overflow-wrap: anywhere;
   }
 
-  #contact .mt-5.flex.gap-4 a {
+  #contact .mt-5.flex.gap-4 a,
+  #find-us .mt-5.flex.gap-4 a {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 999px;
@@ -846,8 +869,20 @@ textarea:focus-visible {
   #contact input,
   #contact select,
   #contact textarea,
-  #contact button {
+  #contact button,
+  #find-us input,
+  #find-us select,
+  #find-us textarea,
+  #find-us button {
     font-size: 16px;
+  }
+
+  .soft-card.p-8 {
+    padding: 1.35rem;
+  }
+
+  .soft-card.p-6 {
+    padding: 1.15rem;
   }
 
   .partner-spotlight {
@@ -941,6 +976,19 @@ textarea:focus-visible {
 
   #moments .swiper-slide img {
     height: 13rem;
+  }
+
+  #caravans .upcoming-caravan-card h2 {
+    font-size: 1.45rem;
+    line-height: 1.2;
+  }
+
+  #team .mb-14 {
+    margin-bottom: 2rem;
+  }
+
+  #team .grid {
+    gap: 1rem;
   }
 
   #find-us iframe {

@@ -47,7 +47,7 @@ if (document.querySelector('.moments-swiper') && typeof Swiper !== 'undefined') 
 }
 
 // Scroll reveal animation
-const revealElements = document.querySelectorAll('.reveal');
+const revealElements = document.querySelectorAll('.reveal:not(.team-card)');
 const revealObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -58,3 +58,24 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 }, { threshold: 0.15 });
 
 revealElements.forEach((element) => revealObserver.observe(element));
+
+// Team page: reveal all cards with a dynamic stagger when section enters view
+const teamSection = document.getElementById('team');
+if (teamSection) {
+  const teamCards = Array.from(teamSection.querySelectorAll('.team-card.reveal'));
+
+  teamCards.forEach((card, index) => {
+    card.style.transitionDelay = `${index * 45}ms`;
+  });
+
+  const teamObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      teamCards.forEach((card) => card.classList.add('in-view'));
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+
+  teamObserver.observe(teamSection);
+}

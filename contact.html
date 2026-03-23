@@ -44,7 +44,7 @@
               <div class="flex gap-3"><i class="fas fa-phone-alt text-deep-blue text-xl mt-0.5"></i><span>+216 25 141 636</span></div>
               <div class="flex gap-3"><i class="fas fa-map-marker-alt text-deep-blue text-xl mt-0.5"></i><span>Sousse, Tunisia (Polytechnique)</span></div>
             </div>
-            <div class="mt-5 flex gap-4">
+            <div class="mt-5 flex flex-wrap gap-4">
               <a href="https://www.facebook.com/nannous.mselmi?locale=fr_FR" target="_blank" rel="noopener noreferrer" class="text-deep-blue" aria-label="Facebook profile" title="Facebook"><i class="fab fa-facebook-f text-2xl"></i></a>
               <a href="https://www.linkedin.com/in/anis-mselmi-441b39326/" target="_blank" rel="noopener noreferrer" class="text-deep-blue" aria-label="LinkedIn profile" title="LinkedIn"><i class="fab fa-linkedin-in text-2xl"></i></a>
               <a href="https://github.com/anis-mselmi" target="_blank" rel="noopener noreferrer" class="text-deep-blue" aria-label="GitHub profile" title="GitHub"><i class="fab fa-github text-2xl"></i></a>
@@ -52,11 +52,14 @@
           </div>
           <div id="volunteer" class="soft-card p-5 md:p-6 reveal max-w-md md:ml-auto w-full">
             <h2 class="text-xl md:text-2xl font-bold flex gap-2"><i class="fas fa-hands-helping text-deep-blue"></i> Volunteer / Join</h2>
-            <form class="space-y-3 mt-3">
-              <input type="text" placeholder="Full name" class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200">
-              <input type="email" placeholder="Email" class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200">
-              <select class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200" aria-label="Volunteer role" title="Select volunteer role"><option>Medical volunteer</option><option>Support volunteer</option><option>Sponsor/Partner</option></select>
-              <textarea rows="2" placeholder="Your message" class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200"></textarea>
+            <form class="space-y-3 mt-3" action="https://formsubmit.co/anismselmi490@gmail.com" method="POST">
+              <input type="hidden" name="_subject" value="New Khidma Care contact form submission">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+              <input type="text" name="name" placeholder="Full name" autocomplete="name" required class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200">
+              <input type="email" name="email" placeholder="Email" autocomplete="email" required class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200">
+              <select name="role" required class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200" aria-label="Volunteer role" title="Select volunteer role"><option value="Medical volunteer">Medical volunteer</option><option value="Support volunteer">Support volunteer</option><option value="Sponsor/Partner">Sponsor/Partner</option></select>
+              <textarea rows="2" name="message" placeholder="Your message" required class="w-full border border-blue-100 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-200"></textarea>
               <button type="submit" class="w-full btn-primary py-2.5 rounded-xl">Send message</button>
             </form>
           </div>
@@ -85,7 +88,7 @@
     </section>
   </main>
 
-  <footer class="bg-deep-blue-dark text-gray-300 pt-12 pb-6"><div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12"><div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500"><p>© 2025 Khidma Care - Humanitarian Initiative</p><p>Designed by <span class="text-cyan-300 font-medium">Anis Mselmi</span> with empathy</p></div></div></footer>
+  <footer class="bg-deep-blue-dark text-gray-300 pt-12 pb-6"><div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12"><div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500"><p>© 2026 Khidma Care - Humanitarian Initiative</p><p>By Anis Mselmi, with empathy 💙</p></div></div></footer>
   <script src="js/script.js"></script>
 </body>
 </html>
