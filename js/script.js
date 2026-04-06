@@ -24,6 +24,12 @@ if (menuBtn && mobileMenu) {
     }
   });
 
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMobileMenu();
+    }
+  });
+
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
       closeMobileMenu();
@@ -48,16 +54,20 @@ if (document.querySelector('.moments-swiper') && typeof Swiper !== 'undefined') 
 
 // Scroll reveal animation
 const revealElements = document.querySelectorAll('.reveal:not(.team-card)');
-const revealObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
 
-revealElements.forEach((element) => revealObserver.observe(element));
+  revealElements.forEach((element) => revealObserver.observe(element));
+} else {
+  revealElements.forEach((element) => element.classList.add('in-view'));
+}
 
 // Team page: reveal all cards with a dynamic stagger when section enters view
 const teamSection = document.getElementById('team');
@@ -68,14 +78,18 @@ if (teamSection) {
     card.style.transitionDelay = `${index * 45}ms`;
   });
 
-  const teamObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
+  if ('IntersectionObserver' in window) {
+    const teamObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-      teamCards.forEach((card) => card.classList.add('in-view'));
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.08 });
+        teamCards.forEach((card) => card.classList.add('in-view'));
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08 });
 
-  teamObserver.observe(teamSection);
+    teamObserver.observe(teamSection);
+  } else {
+    teamCards.forEach((card) => card.classList.add('in-view'));
+  }
 }
