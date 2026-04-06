@@ -265,6 +265,31 @@ section.bg-white {
   background: #102338;
 }
 
+.sponsor-panel {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(34, 211, 238, 0.16), transparent 42%),
+    linear-gradient(160deg, #0f2437 0%, #102b42 100%);
+}
+
+.sponsor-kicker {
+  background: rgba(8, 145, 178, 0.15);
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  color: #c9f4fb;
+}
+
+.sponsor-points li {
+  display: flex;
+  align-items: center;
+}
+
+.sponsor-pdf {
+  background: linear-gradient(180deg, #10263c 0%, #0f2235 100%);
+}
+
+.sponsor-pdf .pdf-frame iframe {
+  height: clamp(16rem, 42vw, 23rem);
+}
+
 .icon-chip {
   width: 4rem;
   height: 4rem;
