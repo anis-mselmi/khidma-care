@@ -11,8 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="antialiased">
@@ -95,7 +93,10 @@
         </div>
         <div class="partner-spotlight reveal">
           <div class="partner-logo-shell">
-            <img src="assets/images/Logo-Polytec-Eurace-blanc.png" alt="Polytec Eurace logo" class="partner-logo">
+            <img src="assets/images/Logo-Polytec-Eurace-blanc.png" alt="Polytec Eurace logo" class="partner-logo" loading="lazy" decoding="async">
+          </div>
+          <div class="partner-logo-shell">
+            <img src="assets/images/447343727_1795719257585804_8023134739586835701_n.jpg" alt="Partner logo" class="partner-logo" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
@@ -109,9 +110,9 @@
           <div class="w-20 h-1 bg-deep-blue mx-auto mt-4 rounded-full"></div>
         </div>
         <div class="video-loop-container rounded-3xl shadow-2xl overflow-hidden aspect-video max-w-4xl mx-auto border border-blue-100 reveal">
-          <video autoplay muted loop preload="metadata" controls class="w-full h-full object-cover" aria-label="Khidma Care field impact video">
-            <source src="assets/videos/design-sans-titre.mp4" type="video/mp4">
-            <source src="assets/videos/Humanitarian_Video_Creation_Request_Fulfilled.mp4" type="video/mp4">
+          <video muted loop preload="none" controls class="w-full h-full object-cover" aria-label="Khidma Care field impact video" data-lazy-video poster="assets/images/a.png">
+            <source data-src="assets/videos/design-sans-titre.mp4" type="video/mp4">
+            <source data-src="assets/videos/Humanitarian_Video_Creation_Request_Fulfilled.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <div class="video-overlay-play absolute inset-0 bg-deep-blue/25 flex items-center justify-center pointer-events-none">
@@ -127,7 +128,7 @@
       <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500"><p>© 2026 Khidma Care - Humanitarian Initiative</p><p>By Anis Mselmi, with empathy 💙</p></div>
     </div>
   </footer>
-  <script src="js/script.js"></script>
+  <script src="js/script.js" defer></script>
 </body>
 </html>
 

@@ -93,3 +93,35 @@ if (teamSection) {
     teamCards.forEach((card) => card.classList.add('in-view'));
   }
 }
+
+// Lazy-load heavy video sources only when the media enters the viewport
+const lazyVideos = document.querySelectorAll('video[data-lazy-video]');
+if (lazyVideos.length) {
+  const hydrateVideo = (video) => {
+    if (video.dataset.loaded === 'true') return;
+
+    const sources = video.querySelectorAll('source[data-src]');
+    sources.forEach((source) => {
+      source.src = source.dataset.src;
+      source.removeAttribute('data-src');
+    });
+
+    video.load();
+    video.dataset.loaded = 'true';
+  };
+
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        hydrateVideo(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '200px 0px' });
+
+    lazyVideos.forEach((video) => videoObserver.observe(video));
+  } else {
+    lazyVideos.forEach(hydrateVideo);
+  }
+}
