@@ -11,20 +11,12 @@ Le projet presente :
 - L'equipe
 - Une section contact (localisation + formulaire)
 
-Le site est en HTML/CSS/JS vanilla (sans build) et peut etre deploye facilement sur GitHub Pages, Netlify ou Vercel en mode statique.
-
-## Nouveautes recentes
-
-- Home mise a jour avec un encart PDF integre (presentation du projet)
-- Video de la section "In Action" remplacee par la nouvelle video
-- Lien Instagram ajoute dans le hero
-- Ajustements responsive/mobile et stabilite JS (menu mobile + fallback animations)
-- Tous les medias (PDF/video) sont maintenant references depuis le dossier assets
+Le site est en HTML/CSS/JS vanilla, sans build, et peut etre deploye facilement sur GitHub Pages, Netlify ou Vercel en mode statique.
 
 ## Structure du projet
 
 ```text
-khidma/
+khidma-care/
 |-- index.html
 |-- mission.html
 |-- caravans.html
@@ -38,11 +30,20 @@ khidma/
 |   `-- script.js
 `-- assets/
     |-- images/
-    |-- videos/
-    |   |-- design-sans-titre.mp4
-    |   `-- Humanitarian_Video_Creation_Request_Fulfilled.mp4
-    `-- documents/
-        `-- khidma-care.pdf
+    |   |-- 11.jpg
+    |   |-- 22.png
+    |   |-- 33.jpg
+    |   |-- 44.jpg
+    |   |-- a.jpeg
+    |   |-- b.jpeg
+    |   |-- c.jpeg
+    |   |-- d.jpeg
+    |   |-- e.jpeg
+    |   |-- f.jpeg
+    |   |-- school.jpg
+    |   `-- ...
+    `-- videos/
+        `-- submission.mp4
 ```
 
 ## Technologies utilisees
@@ -89,11 +90,12 @@ Pages principales :
 - team.html : equipe
 - contact.html : contact + localisation + formulaire
 
-## Medias utilises sur la page d'accueil
+## Medias principaux
 
-- PDF de presentation : assets/documents/khidma-care.pdf
-- Video principale : assets/videos/design-sans-titre.mp4
-- Video fallback : assets/videos/Humanitarian_Video_Creation_Request_Fulfilled.mp4
+- Photo d'accueil : assets/images/f.jpeg
+- Galerie moments : assets/images/a.jpeg a assets/images/e.jpeg
+- Caravane a venir : assets/images/school.jpg
+- Video principale : assets/videos/submission.mp4
 
 ## Deploiement
 
