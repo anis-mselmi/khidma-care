@@ -318,28 +318,15 @@ section.bg-white {
 
 .showcase-footer {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
-  justify-content: space-between;
-}
-
-.showcase-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  border-radius: 999px;
-  padding: 0.42rem 0.8rem;
-  background: rgba(8, 145, 178, 0.16);
-  border: 1px solid rgba(103, 232, 249, 0.26);
-  color: #d8fbff;
-  font-size: 0.82rem;
-  font-weight: 700;
+  justify-content: center;
+  text-align: center;
 }
 
 .showcase-note {
   color: #adc4d6;
   font-size: 0.88rem;
+  width: 100%;
 }
 
 .pdf-frame iframe,
@@ -1296,10 +1283,6 @@ textarea:focus-visible {
     height: 11.6rem;
   }
 
-  #home .showcase-footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 @media (min-width: 768px) {
