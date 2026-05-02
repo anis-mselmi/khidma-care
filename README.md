@@ -22,6 +22,7 @@ khidma-care/
 |-- package.json
 |-- package-lock.json
 |-- tsconfig.json
+|-- vercel.json
 |-- .gitattributes
 |-- .gitignore
 |-- css/
@@ -126,11 +127,19 @@ Le fichier compile `js/script.js` est conserve pour que le site fonctionne direc
 3. Selectionner la branche (main) et le dossier racine (/root)
 4. Sauvegarder
 
-### Netlify / Vercel
+### Vercel
+
+- Importer le depot
+- Build Command : `npm run build`
+- Output Directory : laisser vide ou `./`
+- `vercel.json` redirige les anciennes routes HTML et les acces directs vers `index.html`, afin que le routage TypeScript fonctionne sans erreur 404.
+
+### Netlify
 
 - Importer le depot
 - Laisser les reglages par defaut (site statique)
-- Aucune commande de build necessaire
+- Build command : `npm run build`
+- Publish directory : racine du projet
 
 ## Auteur
 
