@@ -1,42 +1,70 @@
-const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'mission', label: 'Mission' },
-    { id: 'caravans', label: 'Caravans' },
-    { id: 'moments', label: 'Moments' },
-    { id: 'team', label: 'Team' },
-    { id: 'contact', label: 'Contact' }
+type PageId = 'home' | 'mission' | 'caravans' | 'moments' | 'team' | 'contact';
+
+type Page = {
+  title: string;
+  content: string;
+};
+
+declare const Swiper:
+  | undefined
+  | (new (
+      selector: string,
+      options: {
+        loop: boolean;
+        autoplay: { delay: number; disableOnInteraction: boolean };
+        navigation: { nextEl: string; prevEl: string };
+        pagination: { el: string; clickable: boolean };
+        spaceBetween: number;
+        effect: string;
+        speed: number;
+      }
+    ) => unknown);
+
+const navItems: Array<{ id: PageId; label: string }> = [
+  { id: 'home', label: 'Home' },
+  { id: 'mission', label: 'Mission' },
+  { id: 'caravans', label: 'Caravans' },
+  { id: 'moments', label: 'Moments' },
+  { id: 'team', label: 'Team' },
+  { id: 'contact', label: 'Contact' }
 ];
-const routeByFile = {
-    '': 'home',
-    'index.html': 'home',
-    'mission.html': 'mission',
-    'caravans.html': 'caravans',
-    'moments.html': 'moments',
-    'team.html': 'team',
-    'contact.html': 'contact'
+
+const routeByFile: Record<string, PageId> = {
+  '': 'home',
+  'index.html': 'home',
+  'mission.html': 'mission',
+  'caravans.html': 'caravans',
+  'moments.html': 'moments',
+  'team.html': 'team',
+  'contact.html': 'contact'
 };
-const routeToHash = (page, anchor = '') => `#/${page}${anchor ? `#${anchor}` : ''}`;
-const getRoute = () => {
-    const hash = window.location.hash.replace(/^#\/?/, '');
-    if (!hash)
-        return { page: 'home', anchor: '' };
-    const [pageName, anchor = ''] = hash.split('#');
-    const page = (navItems.some((item) => item.id === pageName) ? pageName : 'home');
-    return { page, anchor };
+
+const routeToHash = (page: PageId, anchor = ''): string => `#/${page}${anchor ? `#${anchor}` : ''}`;
+
+const getRoute = (): { page: PageId; anchor: string } => {
+  const hash = window.location.hash.replace(/^#\/?/, '');
+  if (!hash) return { page: 'home', anchor: '' };
+
+  const [pageName, anchor = ''] = hash.split('#');
+  const page = (navItems.some((item) => item.id === pageName) ? pageName : 'home') as PageId;
+  return { page, anchor };
 };
-const navLink = (id, label, activePage) => {
-    const isActive = id === activePage;
-    const className = isActive
-        ? 'nav-link text-deep-blue transition'
-        : 'nav-link text-gray-700 hover:text-deep-blue transition';
-    return `<a href="${routeToHash(id)}" class="${className}">${label}</a>`;
+
+const navLink = (id: PageId, label: string, activePage: PageId): string => {
+  const isActive = id === activePage;
+  const className = isActive
+    ? 'nav-link text-deep-blue transition'
+    : 'nav-link text-gray-700 hover:text-deep-blue transition';
+  return `<a href="${routeToHash(id)}" class="${className}">${label}</a>`;
 };
-const mobileNavLink = (id, label, activePage) => {
-    const isActive = id === activePage;
-    const className = isActive ? 'text-deep-blue py-1' : 'text-gray-700 py-1 hover:text-deep-blue';
-    return `<a href="${routeToHash(id)}" class="${className}">${label}</a>`;
+
+const mobileNavLink = (id: PageId, label: string, activePage: PageId): string => {
+  const isActive = id === activePage;
+  const className = isActive ? 'text-deep-blue py-1' : 'text-gray-700 py-1 hover:text-deep-blue';
+  return `<a href="${routeToHash(id)}" class="${className}">${label}</a>`;
 };
-const renderNav = (activePage) => `
+
+const renderNav = (activePage: PageId): string => `
   <nav class="sticky top-0 z-50 bg-white/85 backdrop-blur-md shadow-sm border-b border-blue-100">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="flex justify-between items-center h-20">
@@ -52,16 +80,18 @@ const renderNav = (activePage) => `
       <div id="mobile-menu" class="md:hidden hidden pb-5 flex flex-col space-y-3 border-t border-gray-100 pt-4">${navItems.map((item) => mobileNavLink(item.id, item.label, activePage)).join('')}</div>
     </div>
   </nav>`;
+
 const footer = `
   <footer class="bg-deep-blue-dark text-gray-300 pt-12 pb-6">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500"><p>Â© 2026 Khidma Care - Humanitarian Initiative</p><p>By Anis Mselmi, with empathy ðŸ’™</p></div>
     </div>
   </footer>`;
-const pages = {
-    home: {
-        title: 'Khidma Care | Home',
-        content: `
+
+const pages: Record<PageId, Page> = {
+  home: {
+    title: 'Khidma Care | Home',
+    content: `
   <main>
     <section id="home" class="hero-wave text-white section-wrap">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24 md:py-32 relative z-10">
@@ -136,10 +166,10 @@ const pages = {
       </div>
     </section>
   </main>`
-    },
-    mission: {
-        title: 'Khidma Care | Mission',
-        content: `
+  },
+  mission: {
+    title: 'Khidma Care | Mission',
+    content: `
   <main>
     <section id="mission" class="pt-10 pb-28 md:pt-12 md:pb-44 section-soft section-wrap">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -155,10 +185,10 @@ const pages = {
       </div>
     </section>
   </main>`
-    },
-    caravans: {
-        title: 'Khidma Care | Caravans',
-        content: `
+  },
+  caravans: {
+    title: 'Khidma Care | Caravans',
+    content: `
   <main>
     <section id="caravans" class="pt-6 pb-24 md:pt-8 md:pb-24 scroll-mt-24 md:scroll-mt-28 bg-white section-wrap">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -179,10 +209,10 @@ const pages = {
       </div>
     </section>
   </main>`
-    },
-    moments: {
-        title: 'Khidma Care | Moments',
-        content: `
+  },
+  moments: {
+    title: 'Khidma Care | Moments',
+    content: `
   <main>
     <section id="moments" class="pt-10 pb-24 md:pt-12 md:pb-24 section-soft section-wrap">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -202,10 +232,10 @@ const pages = {
       </div>
     </section>
   </main>`
-    },
-    team: {
-        title: 'Khidma Care | Team',
-        content: `
+  },
+  team: {
+    title: 'Khidma Care | Team',
+    content: `
   <main>
     <section id="team" class="pt-10 pb-24 md:pt-12 md:pb-24 section-soft section-wrap">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -224,10 +254,10 @@ const pages = {
       </div>
     </section>
   </main>`
-    },
-    contact: {
-        title: 'Khidma Care | Contact',
-        content: `
+  },
+  contact: {
+    title: 'Khidma Care | Contact',
+    content: `
   <main>
     <section id="find-us" class="pt-10 pb-24 md:pt-12 md:pb-24 section-soft section-wrap">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -286,147 +316,166 @@ const pages = {
       </div>
     </section>
   </main>`
-    }
+  }
 };
-let behaviorAbortController = null;
-const renderApp = () => {
-    const root = document.getElementById('app');
-    if (!root)
-        return;
-    const { page, anchor } = getRoute();
-    document.title = pages[page].title;
-    root.innerHTML = `${renderNav(page)}${pages[page].content}${footer}`;
-    initializeBehavior();
-    requestAnimationFrame(() => {
-        var _a;
-        if (anchor) {
-            (_a = document.getElementById(anchor)) === null || _a === void 0 ? void 0 : _a.scrollIntoView();
-            return;
-        }
-        window.scrollTo({ top: 0 });
+
+let behaviorAbortController: AbortController | null = null;
+
+const renderApp = (): void => {
+  const root = document.getElementById('app');
+  if (!root) return;
+
+  const { page, anchor } = getRoute();
+  document.title = pages[page].title;
+  root.innerHTML = `${renderNav(page)}${pages[page].content}${footer}`;
+
+  initializeBehavior();
+
+  requestAnimationFrame(() => {
+    if (anchor) {
+      document.getElementById(anchor)?.scrollIntoView();
+      return;
+    }
+    window.scrollTo({ top: 0 });
+  });
+};
+
+const initializeBehavior = (): void => {
+  behaviorAbortController?.abort();
+  behaviorAbortController = new AbortController();
+  const { signal } = behaviorAbortController;
+
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn && mobileMenu) {
+    const closeMobileMenu = (): void => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    menuBtn.setAttribute('aria-controls', 'mobile-menu');
+    menuBtn.setAttribute('aria-expanded', 'false');
+
+    menuBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', String(!isHidden));
     });
-};
-const initializeBehavior = () => {
-    behaviorAbortController === null || behaviorAbortController === void 0 ? void 0 : behaviorAbortController.abort();
-    behaviorAbortController = new AbortController();
-    const { signal } = behaviorAbortController;
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-        const closeMobileMenu = () => {
-            mobileMenu.classList.add('hidden');
-            menuBtn.setAttribute('aria-expanded', 'false');
-        };
-        menuBtn.setAttribute('aria-controls', 'mobile-menu');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        menuBtn.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            menuBtn.setAttribute('aria-expanded', String(!isHidden));
-        });
-        document.addEventListener('click', (event) => {
-            if (mobileMenu.classList.contains('hidden'))
-                return;
-            const clickedInsideMenu = mobileMenu.contains(event.target);
-            const clickedMenuButton = menuBtn.contains(event.target);
-            if (!clickedInsideMenu && !clickedMenuButton) {
-                closeMobileMenu();
-            }
-        }, { signal });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                closeMobileMenu();
-            }
-        }, { signal });
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                closeMobileMenu();
-            }
-        }, { signal });
-        mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileMenu));
-    }
-    if (document.querySelector('.moments-swiper') && typeof Swiper !== 'undefined') {
-        new Swiper('.moments-swiper', {
-            loop: true,
-            autoplay: { delay: 4000, disableOnInteraction: false },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-            pagination: { el: '.swiper-pagination', clickable: true },
-            spaceBetween: 0,
-            effect: 'slide',
-            speed: 800
-        });
-    }
-    const revealElements = document.querySelectorAll('.reveal:not(.team-card)');
+
+    document.addEventListener('click', (event: MouseEvent) => {
+      if (mobileMenu.classList.contains('hidden')) return;
+      const clickedInsideMenu = mobileMenu.contains(event.target as Node);
+      const clickedMenuButton = menuBtn.contains(event.target as Node);
+      if (!clickedInsideMenu && !clickedMenuButton) {
+        closeMobileMenu();
+      }
+    }, { signal });
+
+    document.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeMobileMenu();
+      }
+    }, { signal });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        closeMobileMenu();
+      }
+    }, { signal });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileMenu));
+  }
+
+  if (document.querySelector('.moments-swiper') && typeof Swiper !== 'undefined') {
+    new Swiper('.moments-swiper', {
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      spaceBetween: 0,
+      effect: 'slide',
+      speed: 800
+    });
+  }
+
+  const revealElements = document.querySelectorAll('.reveal:not(.team-card)');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach((element) => revealObserver.observe(element));
+  } else {
+    revealElements.forEach((element) => element.classList.add('in-view'));
+  }
+
+  const teamSection = document.getElementById('team');
+  if (teamSection) {
+    const teamCards = Array.from(teamSection.querySelectorAll<HTMLElement>('.team-card.reveal'));
+
+    teamCards.forEach((card, index) => {
+      card.style.transitionDelay = `${index * 45}ms`;
+    });
+
     if ('IntersectionObserver' in window) {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        revealElements.forEach((element) => revealObserver.observe(element));
-    }
-    else {
-        revealElements.forEach((element) => element.classList.add('in-view'));
-    }
-    const teamSection = document.getElementById('team');
-    if (teamSection) {
-        const teamCards = Array.from(teamSection.querySelectorAll('.team-card.reveal'));
-        teamCards.forEach((card, index) => {
-            card.style.transitionDelay = `${index * 45}ms`;
+      const teamObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          teamCards.forEach((card) => card.classList.add('in-view'));
+          observer.unobserve(entry.target);
         });
-        if ('IntersectionObserver' in window) {
-            const teamObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting)
-                        return;
-                    teamCards.forEach((card) => card.classList.add('in-view'));
-                    observer.unobserve(entry.target);
-                });
-            }, { threshold: 0.08 });
-            teamObserver.observe(teamSection);
-        }
-        else {
-            teamCards.forEach((card) => card.classList.add('in-view'));
-        }
+      }, { threshold: 0.08 });
+
+      teamObserver.observe(teamSection);
+    } else {
+      teamCards.forEach((card) => card.classList.add('in-view'));
     }
-    const lazyVideos = document.querySelectorAll('video[data-lazy-video]');
-    if (lazyVideos.length) {
-        const hydrateVideo = (video) => {
-            if (video.dataset.loaded === 'true')
-                return;
-            const sources = video.querySelectorAll('source[data-src]');
-            sources.forEach((source) => {
-                source.src = source.dataset.src;
-                source.removeAttribute('data-src');
-            });
-            video.load();
-            video.dataset.loaded = 'true';
-        };
-        if ('IntersectionObserver' in window) {
-            const videoObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting)
-                        return;
-                    hydrateVideo(entry.target);
-                    observer.unobserve(entry.target);
-                });
-            }, { rootMargin: '200px 0px' });
-            lazyVideos.forEach((video) => videoObserver.observe(video));
-        }
-        else {
-            lazyVideos.forEach(hydrateVideo);
-        }
+  }
+
+  const lazyVideos = document.querySelectorAll<HTMLVideoElement>('video[data-lazy-video]');
+  if (lazyVideos.length) {
+    const hydrateVideo = (video: HTMLVideoElement): void => {
+      if (video.dataset.loaded === 'true') return;
+
+      const sources = video.querySelectorAll<HTMLSourceElement>('source[data-src]');
+      sources.forEach((source) => {
+        source.src = source.dataset.src as string;
+        source.removeAttribute('data-src');
+      });
+
+      video.load();
+      video.dataset.loaded = 'true';
+    };
+
+    if ('IntersectionObserver' in window) {
+      const videoObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          hydrateVideo(entry.target as HTMLVideoElement);
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: '200px 0px' });
+
+      lazyVideos.forEach((video) => videoObserver.observe(video));
+    } else {
+      lazyVideos.forEach(hydrateVideo);
     }
+  }
 };
+
 window.addEventListener('hashchange', renderApp);
 document.addEventListener('DOMContentLoaded', () => {
-    var _a;
-    const fileRoute = routeByFile[(_a = window.location.pathname.split('/').pop()) !== null && _a !== void 0 ? _a : ''];
-    if (fileRoute && fileRoute !== 'home' && !window.location.hash) {
-        window.location.hash = routeToHash(fileRoute);
-        return;
-    }
-    renderApp();
+  const fileRoute = routeByFile[window.location.pathname.split('/').pop() ?? ''];
+  if (fileRoute && fileRoute !== 'home' && !window.location.hash) {
+    window.location.hash = routeToHash(fileRoute);
+    return;
+  }
+
+  renderApp();
 });

@@ -1,6 +1,6 @@
 # Khidma Care - Site Web
 
-Site vitrine multipage pour l'initiative humanitaire Khidma Care, avec une interface moderne, responsive et orientee impact social.
+Site vitrine pour l'initiative humanitaire Khidma Care, avec une interface moderne, responsive et orientee impact social.
 
 ## Apercu
 
@@ -11,22 +11,23 @@ Le projet presente :
 - L'equipe
 - Une section contact (localisation + formulaire)
 
-Le site est en HTML/CSS/JS vanilla, sans build, et peut etre deploye facilement sur GitHub Pages, Netlify ou Vercel en mode statique.
+Le site est maintenant rendu par TypeScript vanilla. `index.html` sert uniquement de point d'entree navigateur, tandis que `js/script.ts` contient les pages, la navigation et les comportements. Le design, les sections et les comportements restent ceux du site original.
 
 ## Structure du projet
 
 ```text
 khidma-care/
 |-- index.html
-|-- mission.html
-|-- caravans.html
-|-- moments.html
-|-- team.html
-|-- contact.html
 |-- README.md
+|-- package.json
+|-- package-lock.json
+|-- tsconfig.json
+|-- .gitattributes
+|-- .gitignore
 |-- css/
 |   `-- styles.css
 |-- js/
+|   |-- script.ts
 |   `-- script.js
 `-- assets/
     |-- images/
@@ -48,14 +49,29 @@ khidma-care/
 
 ## Technologies utilisees
 
-- HTML5
+- HTML5 minimal (point d'entree)
 - CSS3
-- JavaScript (vanilla)
+- TypeScript (vanilla, compile vers JavaScript)
+- JavaScript compile (`js/script.js`, marque comme genere pour GitHub Linguist)
 - Tailwind CSS (via CDN)
 - Font Awesome (icones)
 - Swiper.js (carrousel)
 
 ## Lancer le projet en local
+
+### Compiler le TypeScript
+
+Installer les dependances une seule fois :
+
+```bash
+npm install
+```
+
+Compiler `js/script.ts` vers `js/script.js` :
+
+```bash
+npm run build
+```
 
 ### Option 1 - Ouverture directe
 
@@ -83,12 +99,16 @@ http://localhost:5500
 ## Navigation
 
 Pages principales :
-- index.html : accueil
-- mission.html : mission
-- caravans.html : caravanes
-- moments.html : galerie moments
-- team.html : equipe
-- contact.html : contact + localisation + formulaire
+- `#/home` : accueil
+- `#/mission` : mission
+- `#/caravans` : caravanes
+- `#/moments` : galerie moments
+- `#/team` : equipe
+- `#/contact` : contact + localisation + formulaire
+
+## Statistiques GitHub
+
+Le fichier compile `js/script.js` est conserve pour que le site fonctionne directement en statique, mais il est marque comme genere dans `.gitattributes`. GitHub Linguist comptera donc principalement la source TypeScript et le CSS, au lieu de compter deux fois la logique TypeScript et son JavaScript compile.
 
 ## Medias principaux
 
